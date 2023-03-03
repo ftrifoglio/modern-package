@@ -1,0 +1,31 @@
+﻿package
+=======
+
+.. automodule:: package
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      add
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
