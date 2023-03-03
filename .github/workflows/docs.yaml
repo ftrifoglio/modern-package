@@ -46,11 +46,6 @@ jobs:
         run: |
           sudo apt-get install -y --no-install-recommends pandoc
       #----------------------------------------------
-      # install staticrypt
-      #----------------------------------------------
-      - name: Install StatiCrypt
-        run: npm install -g staticrypt
-      #----------------------------------------------
       # load cached venv
       #----------------------------------------------
       - name: Load cached venv

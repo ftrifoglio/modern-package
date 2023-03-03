@@ -14,8 +14,12 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
     strategy:
       matrix:
-        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        os: ["ubuntu-latest"
+        # , "macos-latest", "windows-latest"
+        ]
+        python-version: ["3.8"
+        # , "3.9", "3.10", "3.11"
+        ]
     defaults:
       run:
         shell: bash
@@ -64,10 +68,14 @@ jobs:
       #----------------------------------------------
       - name: Install Windows dependencies
         if: runner.os == 'Windows' && steps.cached-pip-wheels.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root --with=tests
+        run: |
+          poetry install --no-interaction --no-root
+          poetry add pytest
       - name: Install other OS dependencies
         if: runner.os != 'Windows' && steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root --with=tests
+        run: |
+          poetry install --no-interaction --no-root
+          poetry add pytest
       - name: Install library
         run: poetry install --no-interaction
       #----------------------------------------------
@@ -88,7 +96,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ secrets.PAT }}
           fetch-depth: 0
       #----------------------------------------------
       # bump version, push tag and update changelog
@@ -96,4 +104,4 @@ jobs:
       - name: Bump version
         uses: commitizen-tools/commitizen-action@master
         with:
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          github_token: ${{ secrets.PAT }}
