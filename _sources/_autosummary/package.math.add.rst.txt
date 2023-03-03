@@ -1,0 +1,6 @@
+package.math.add
+================
+
+.. currentmodule:: package.math
+
+.. autofunction:: add

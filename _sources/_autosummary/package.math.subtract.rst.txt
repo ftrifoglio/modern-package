@@ -1,0 +1,6 @@
+package.math.subtract
+=====================
+
+.. currentmodule:: package.math
+
+.. autofunction:: subtract
