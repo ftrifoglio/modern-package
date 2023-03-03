@@ -1,41 +1,39 @@
 """Math functions."""
 
+from functools import reduce
 
-def add(a: int, b: int) -> int:
+
+def add(*nums: int) -> int:
     """
-    Add two numbers.
+    Add all numbers.
 
     Parameters
     ----------
-    a : int
-        First number.
-    b : int
-        Second number.
+    nums : int
+        Numbers to add. Comma separated.
 
     Returns
     -------
     int
-        Sum of the two numbers.
+        Sum of all numbers.
 
     """
-    return a + b
+    return reduce(lambda a, b: a + b, list(nums))
 
 
-def subtract(a: int, b: int) -> int:
+def subtract(*nums: int) -> int:
     """
-    Subtract two numbers.
+    Subtract all numbers.
 
     Parameters
     ----------
-    a : int
-        First number.
-    b : int
-        Second number.
+    args : int
+        Numbers to subtract. Comma separated.
 
     Returns
     -------
     int
-        Difference of the two numbers.
+        Subtraction of all numbers.
 
     """
-    return a - b
+    return reduce(lambda a, b: a - b, list(nums))
