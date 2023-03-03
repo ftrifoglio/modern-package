@@ -40,13 +40,11 @@ jobs:
           virtualenvs-in-project: true
           installer-parallel: true
       #----------------------------------------------
-      # install pandoc
-      #----------------------------------------------
-      - name: Install Pandoc
-        run: |
-          sudo apt-get install -y --no-install-recommends pandoc
-      #----------------------------------------------
-      # load cached venv
+      # load cache, if it exists from prev successful run of this job
+      #
+      # Notes:
+      #  changes to the poetry.lock file will mean that
+      #  this step is skipped and the next one will be executed instead
       #----------------------------------------------
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -55,10 +53,15 @@ jobs:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
-      # install project
+      # install dependencies for the first time
       #----------------------------------------------
-      - name: Install project
-        run: poetry install --no-interaction --with=docs
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root --with=docs
+      #----------------------------------------------
+      # install package
+      #----------------------------------------------
+      - name: Install package
+        run: poetry install --no-interaction
       #----------------------------------------------
       # build docs
       #----------------------------------------------

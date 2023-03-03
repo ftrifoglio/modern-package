@@ -46,8 +46,13 @@ jobs:
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
+          installer-parallel: true
       #----------------------------------------------
-      # load cache
+      # load cache, if it exists from prev successful run of this job
+      #
+      # Notes:
+      #  changes to the poetry.lock file will mean that
+      #  this step is skipped and the next one will be executed instead
       #----------------------------------------------
       - name: Load cached pip wheels
         if: ${{ runner.os == 'Windows' }}
@@ -64,7 +69,13 @@ jobs:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
-      # install project
+      # install deps for the first time
+      #
+      # Notes:
+      #  poetry install --no-interaction --no-root --with=tests
+      #  will install extra deps that we don't need and
+      #  it might not work anyway because of the python version requirement
+      #  specified in the pyproject.toml
       #----------------------------------------------
       - name: Install Windows dependencies
         if: runner.os == 'Windows' && steps.cached-pip-wheels.outputs.cache-hit != 'true'
@@ -76,6 +87,9 @@ jobs:
         run: |
           poetry install --no-interaction --no-root
           poetry add pytest
+      #----------------------------------------------
+      # install package
+      #----------------------------------------------
       - name: Install library
         run: poetry install --no-interaction
       #----------------------------------------------
@@ -86,6 +100,11 @@ jobs:
           source $VENV
           pytest tests/
   bump:
+    #----------------------------------------------
+    # Notes:
+    #  do not use GITHUB_TOKEN for this job
+    #  https://commitizen-tools.github.io/commitizen/tutorials/github_actions/
+    #----------------------------------------------
     needs: test
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-latest

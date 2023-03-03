@@ -9,10 +9,15 @@ on:
 
 jobs:
   test:
+    if: "!startsWith(github.event.head_commit.message, 'bump:')"
     strategy:
       matrix:
-        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        os: ["ubuntu-latest"
+        # , "macos-latest", "windows-latest"
+        ]
+        python-version: ["3.8"
+        # , "3.9", "3.10", "3.11"
+        ]
     defaults:
       run:
         shell: bash
@@ -39,8 +44,13 @@ jobs:
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
+          installer-parallel: true
       #----------------------------------------------
-      # load cache
+      # load cache, if it exists from prev successful run of this job
+      #
+      # Notes:
+      #  changes to the poetry.lock file will mean that
+      #  this step is skipped and the next one will be executed instead
       #----------------------------------------------
       - name: Load cached pip wheels
         if: ${{ runner.os == 'Windows' }}
@@ -57,15 +67,28 @@ jobs:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
-      # install project
+      # install dependencies for the first time
+      #
+      # Notes:
+      #  poetry install --no-interaction --no-root --with=tests
+      #  will install extra deps that we don't need and
+      #  it might not work anyway because of the python version requirement
+      #  specified in the pyproject.toml
       #----------------------------------------------
       - name: Install Windows dependencies
         if: runner.os == 'Windows' && steps.cached-pip-wheels.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root --with=tests
+        run: |
+          poetry install --no-interaction --no-root
+          poetry add pytest
       - name: Install other OS dependencies
         if: runner.os != 'Windows' && steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root --with=tests
-      - name: Install library
+        run: |
+          poetry install --no-interaction --no-root
+          poetry add pytest
+      #----------------------------------------------
+      # install package
+      #----------------------------------------------
+      - name: Install package
         run: poetry install --no-interaction
       #----------------------------------------------
       # run tests
