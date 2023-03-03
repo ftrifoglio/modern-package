@@ -1,0 +1,99 @@
+name: Tests CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'package/**'
+      - 'tests/**'
+      - '.github/workflows/tests.yaml'
+
+jobs:
+  test:
+    if: "!startsWith(github.event.head_commit.message, 'bump:')"
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+    defaults:
+      run:
+        shell: bash
+    runs-on: ${{ matrix.os }}
+    steps:
+      #----------------------------------------------
+      # checkout repo & set up python
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      #----------------------------------------------
+      # install & configure poetry
+      #----------------------------------------------
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+      #----------------------------------------------
+      # load cache
+      #----------------------------------------------
+      - name: Load cached pip wheels
+        if: ${{ runner.os == 'Windows' }}
+        id: cached-pip-wheels
+        uses: actions/cache@v3
+        with:
+          path: ~\AppData\Local\pip\Cache
+          key: pip-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Load cached venv
+        if: ${{ runner.os != 'Windows' }}
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      #----------------------------------------------
+      # install project
+      #----------------------------------------------
+      - name: Install Windows dependencies
+        if: runner.os == 'Windows' && steps.cached-pip-wheels.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root --with=tests
+      - name: Install other OS dependencies
+        if: runner.os != 'Windows' && steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root --with=tests
+      - name: Install library
+        run: poetry install --no-interaction
+      #----------------------------------------------
+      # run tests
+      #----------------------------------------------
+      - name: Run tests
+        run: |
+          source $VENV
+          pytest tests/
+  bump:
+    needs: test
+    if: "!startsWith(github.event.head_commit.message, 'bump:')"
+    runs-on: ubuntu-latest
+    steps:
+      #----------------------------------------------
+      # checkout repo
+      #----------------------------------------------
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          fetch-depth: 0
+      #----------------------------------------------
+      # bump version, push tag and update changelog
+      #----------------------------------------------
+      - name: Bump version
+        uses: commitizen-tools/commitizen-action@master
+        with:
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
