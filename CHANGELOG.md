@@ -1,3 +1,9 @@
+## 0.3.0 (2023-03-03)
+
+### Feat
+
+- extend add and subtract to take  more than 2 numbers
+
 ## 0.2.0 (2023-03-03)
 
 ### Feat
