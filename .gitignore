@@ -1,0 +1,32 @@
+# Cache
+__pycache__
+.pytest_cache
+.mypy_cache
+.ipynb_checkpoints
+
+# Coverage
+.coverage
+
+# Tox
+.tox
+
+# Virtual environment
+.venv
+.poetry
+
+# Config files
+.python-version
+
+# Mac files
+.DS_Store
+
+# IDE
+.vscode
+
+# Build
+dist
+
+# Docs
+docs/build
+docs/_autosummary
+docs/releases.rst
