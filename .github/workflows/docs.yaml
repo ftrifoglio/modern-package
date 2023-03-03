@@ -40,6 +40,12 @@ jobs:
           virtualenvs-in-project: true
           installer-parallel: true
       #----------------------------------------------
+      # install pandoc
+      #----------------------------------------------
+      - name: Install Pandoc
+        run: |
+          sudo apt-get install -y --no-install-recommends pandoc
+      #----------------------------------------------
       # load cache, if it exists from prev successful run of this job
       #
       # Notes:
