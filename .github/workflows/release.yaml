@@ -54,8 +54,14 @@ jobs:
       #----------------------------------------------
       # release project
       #----------------------------------------------
+      - name: incremental CHANGELOG.md
+        run: |
+          sed -n "/^## ${{  github.ref_name }} .*$/,/^## /p" CHANGELOG.md | sed '$d' > incremental_changelog.txt
+          cat incremental_changelog.txt
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
           files: ./dist/**
+          body_path: incremental_changelog.txt
+          token: ${{ secrets.PAT }}
