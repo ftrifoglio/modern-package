@@ -1,0 +1,6 @@
+package.math.exponentiate
+=========================
+
+.. currentmodule:: package.math
+
+.. autofunction:: exponentiate

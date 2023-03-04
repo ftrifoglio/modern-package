@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>package.math &mdash; package 0.5.0 documentation</title>
+  <title>package.math.exponentiate &mdash; package 0.5.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="package.math.add" href="package.math.add.html" />
-    <link rel="prev" title="package" href="package.html" /> 
+    <link rel="next" title="package.math.multiply" href="package.math.multiply.html" />
+    <link rel="prev" title="package.math.add" href="package.math.add.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,9 +49,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Home page</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="package.html">API reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">package.math</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="package.math.html">package.math</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="package.math.add.html">package.math.add</a></li>
-<li class="toctree-l3"><a class="reference internal" href="package.math.exponentiate.html">package.math.exponentiate</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">package.math.exponentiate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="package.math.multiply.html">package.math.multiply</a></li>
 <li class="toctree-l3"><a class="reference internal" href="package.math.subtract.html">package.math.subtract</a></li>
 </ul>
@@ -76,7 +76,8 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="package.html">package</a></li>
-      <li class="breadcrumb-item active">package.math</li>
+          <li class="breadcrumb-item"><a href="package.math.html">package.math</a></li>
+      <li class="breadcrumb-item active">package.math.exponentiate</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,40 +86,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-package.math">
-<span id="package-math"></span><h1>package.math<a class="headerlink" href="#module-package.math" title="Permalink to this heading"></a></h1>
-<p>Math functions.</p>
-<p class="rubric">Functions</p>
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="package.math.add.html#package.math.add" title="package.math.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a></p></td>
-<td><p>Add all numbers.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="package.math.exponentiate.html#package.math.exponentiate" title="package.math.exponentiate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exponentiate</span></code></a></p></td>
-<td><p>Calculate power of a number.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="package.math.multiply.html#package.math.multiply" title="package.math.multiply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiply</span></code></a></p></td>
-<td><p>Multiply all numbers.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="package.math.subtract.html#package.math.subtract" title="package.math.subtract"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subtract</span></code></a></p></td>
-<td><p>Subtract all numbers.</p></td>
-</tr>
-</tbody>
-</table>
+  <section id="package-math-exponentiate">
+<h1>package.math.exponentiate<a class="headerlink" href="#package-math-exponentiate" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="package.math.exponentiate">
+<span class="sig-name descname"><span class="pre">exponentiate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exponent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/package/math.html#exponentiate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#package.math.exponentiate" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate power of a number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Base number.</p></li>
+<li><p><strong>exponent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Exponent.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> – Power of a number.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="package.html" class="btn btn-neutral float-left" title="package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="package.math.add.html" class="btn btn-neutral float-right" title="package.math.add" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="package.math.add.html" class="btn btn-neutral float-left" title="package.math.add" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="package.math.multiply.html" class="btn btn-neutral float-right" title="package.math.multiply" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-<jinja2.runtime.BlockReference object at 0x7f375a798490>
+<jinja2.runtime.BlockReference object at 0x7f375a6bda10>
 <!-- your custom footer here-->
 © Copyright 2023, <a href="https://www.assemblyglobal.com/">Assembly Global.</a>
 

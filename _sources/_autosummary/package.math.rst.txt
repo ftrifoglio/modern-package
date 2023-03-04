@@ -16,6 +16,8 @@ package.math
       :nosignatures:
    
       add
+      exponentiate
+      multiply
       subtract
    
    

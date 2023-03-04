@@ -1,0 +1,6 @@
+package.math.multiply
+=====================
+
+.. currentmodule:: package.math
+
+.. autofunction:: multiply
