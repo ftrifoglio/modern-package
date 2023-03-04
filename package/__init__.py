@@ -1,7 +1,7 @@
 """Package."""
 
-from .math import add, subtract
+from .math import add, exponentiate, multiply, subtract
 
 __version__ = "0.4.0"
 
-__all__ = ["add", "subtract", "multiply"]
+__all__ = ["add", "subtract", "multiply", "exponentiate"]

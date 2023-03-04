@@ -55,3 +55,23 @@ def multiply(*nums: int) -> int:
 
     """
     return reduce(lambda a, b: a * b, list(nums))
+
+
+def exponentiate(base: int, exponent: int) -> int:
+    """
+    Calculate power of a number.
+
+    Parameters
+    ----------
+    base : int
+        Base number.
+    exponent : int
+        Exponent.
+
+    Returns
+    -------
+    int
+        Power of a number.
+
+    """
+    return base**exponent
