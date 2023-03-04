@@ -1,4 +1,4 @@
-from package.math import add, multiply, subtract
+from package.math import add, exponentiate, multiply, subtract
 
 
 def test_add() -> None:
@@ -11,3 +11,7 @@ def test_subtract() -> None:
 
 def test_multiply() -> None:
     assert multiply(1, 2) == 2
+
+
+def test_exponentiate() -> None:
+    assert exponentiate(2, 3) == 8
