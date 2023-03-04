@@ -27,7 +27,7 @@ def subtract(*nums: int) -> int:
 
     Parameters
     ----------
-    args : int
+    nums : int
         Numbers to subtract. Comma separated.
 
     Returns
@@ -45,7 +45,7 @@ def multiply(*nums: int) -> int:
 
     Parameters
     ----------
-    args : int
+    nums : int
         Numbers to multiply. Comma separated.
 
     Returns
