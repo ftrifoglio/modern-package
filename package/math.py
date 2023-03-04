@@ -37,3 +37,21 @@ def subtract(*nums: int) -> int:
 
     """
     return reduce(lambda a, b: a - b, list(nums))
+
+
+def multiply(*nums: int) -> int:
+    """
+    Multiply all numbers.
+
+    Parameters
+    ----------
+    args : int
+        Numbers to multiply. Comma separated.
+
+    Returns
+    -------
+    int
+        Multiplication of all numbers.
+
+    """
+    return reduce(lambda a, b: a * b, list(nums))
