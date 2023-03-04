@@ -1,3 +1,9 @@
+## 0.5.0 (2023-03-04)
+
+### Feat
+
+- add exponentiate function
+
 ## 0.4.0 (2023-03-04)
 
 ### Feat
