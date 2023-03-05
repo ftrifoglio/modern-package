@@ -7,7 +7,13 @@ on:
 
 jobs:
   build_and_release:
-    runs-on: ubuntu-20.04
+  #----------------------------------------------
+  # Notes:
+  #  in order to trigger the 'docs' action when
+  #  the release is published, we must use a personal
+  #  access token (PAT), instead of secrets.GITHUB_TOKEN
+  #----------------------------------------------
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
@@ -19,28 +25,33 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           fetch-depth: 0
+      #----------------------------------------------
+      # setup python
+      #----------------------------------------------
       - name: Set up Python
+        id: setup-python
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
       #----------------------------------------------
-      # install & configure poetry
+      # load poetry, if cached
+      #----------------------------------------------
+      - name: Load cached Poetry
+        id: cached-poetry-installation
+        uses: actions/cache@v3
+        with:
+          path: ~/.local
+          key: poetry-cache-${{ runner.os }}-${{ env.POETRY_VERSION }}
+      #----------------------------------------------
+      # install poetry, if not cached
       #----------------------------------------------
       - name: Install Poetry
+        if: steps.cached-poetry-installation.outputs.cache-hit != 'true'
         uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
-      #----------------------------------------------
-      # load cached venv
-      #----------------------------------------------
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
       # install project
       #----------------------------------------------

@@ -11,63 +11,87 @@ jobs:
   test:
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
     strategy:
+      fail-fast: true
       matrix:
-        os: ["ubuntu-latest"
-        # , "macos-latest", "windows-latest"
-        ]
-        python-version: ["3.8"
-        # , "3.9", "3.10", "3.11"
-        ]
+        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
     defaults:
       run:
         shell: bash
+    env:
+      POETRY_VERSION: 1.2.1
     runs-on: ${{ matrix.os }}
     steps:
       #----------------------------------------------
-      # checkout repo & set up python
+      # checkout repo
       #----------------------------------------------
       - name: Check out repository
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-      - name: Set up python
+      #----------------------------------------------
+      # setup python
+      #----------------------------------------------
+      - name: Set up Python
         id: setup-python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       #----------------------------------------------
-      # install & configure poetry
+      # load poetry, if cached
+      #----------------------------------------------
+      - name: Load cached Poetry
+        id: cached-poetry-installation
+        uses: actions/cache@v3
+        with:
+          path: ~/.local
+          key: poetry-cache-${{ runner.os }}-${{ env.POETRY_VERSION }}
+      - name: Add cache to PATH
+        if: runner.os == 'macOS' && steps.cached-poetry-installation.outputs.cache-hit == 'true'
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Add cache to PATH
+        if: runner.os == 'Windows' && steps.cached-poetry-installation.outputs.cache-hit == 'true'
+        run: |
+          echo "${USERPROFILE}\.local\bin"
+          echo "${USERPROFILE}\.local\bin" >> $GITHUB_PATH
+      - name: Set PATH
+        if: runner.os == 'Windows' && steps.cached-poetry-installation.outputs.cache-hit == 'true'
+        run: set PATH
+      #----------------------------------------------
+      # install poetry, if not cached
       #----------------------------------------------
       - name: Install Poetry
+        if: steps.cached-poetry-installation.outputs.cache-hit != 'true'
         uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
       #----------------------------------------------
-      # load cache, if it exists from prev successful run of this job
+      # load tests dependencies, if cached
       #
       # Notes:
-      #  changes to the poetry.lock file will mean that
+      #  1. changes to the poetry.lock file will mean that
       #  this step is skipped and the next one will be executed instead
+      #  2. caching venv does not seem to work on Windows runners
       #----------------------------------------------
-      - name: Load cached pip wheels
-        if: ${{ runner.os == 'Windows' }}
+      - name: Load cached PIP wheels
+        if: runner.os == 'Windows'
         id: cached-pip-wheels
         uses: actions/cache@v3
         with:
           path: ~\AppData\Local\pip\Cache
-          key: pip-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-      - name: Load cached venv
-        if: ${{ runner.os != 'Windows' }}
+          key: pip-${{ runner.os }}
+      - name: Load cached .venv
+        if: runner.os != 'Windows'
         id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: tests-venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
-      # install dependencies for the first time
+      # install tests dependencies, if not cached
       #
       # Notes:
       #  poetry install --no-interaction --no-root --with=tests
@@ -75,25 +99,25 @@ jobs:
       #  it might not work anyway because of the python version requirement
       #  specified in the pyproject.toml
       #----------------------------------------------
-      - name: Install Windows dependencies
-        if: runner.os == 'Windows' && steps.cached-pip-wheels.outputs.cache-hit != 'true'
-        run: |
-          poetry install --no-interaction --no-root
-          poetry add pytest
-      - name: Install other OS dependencies
-        if: runner.os != 'Windows' && steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      - name: Install dependencies
+        if: runner.os == 'Windows' || steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
           poetry install --no-interaction --no-root
           poetry add pytest
       #----------------------------------------------
-      # install package
+      # install project (always)
       #----------------------------------------------
-      - name: Install package
+      - name: Install project
         run: poetry install --no-interaction
       #----------------------------------------------
       # run tests
       #----------------------------------------------
       - name: Run tests
+        if: runner.os != 'Windows'
         run: |
-          source $VENV
+          source .venv/bin/activate
           pytest tests/
+      - name: Run tests
+        if: runner.os == 'Windows'
+        run: |
+          source .venv/scripts/activate
