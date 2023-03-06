@@ -1,3 +1,9 @@
+## 0.5.1 (2023-03-06)
+
+### Fix
+
+- fix typing hints of math module
+
 ## 0.5.0 (2023-03-04)
 
 ### Feat
