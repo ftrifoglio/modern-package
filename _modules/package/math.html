@@ -79,74 +79,74 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
 
 
-<div class="viewcode-block" id="add"><a class="viewcode-back" href="../../_autosummary/package.math.add.html#package.math.add">[docs]</a><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="o">*</span><span class="n">nums</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="add"><a class="viewcode-back" href="../../_autosummary/package.math.add.html#package.math.add">[docs]</a><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="o">*</span><span class="n">nums</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add all numbers.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    nums : int</span>
+<span class="sd">    nums : int or float</span>
 <span class="sd">        Numbers to add. Comma separated.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    int</span>
+<span class="sd">    int or float</span>
 <span class="sd">        Sum of all numbers.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">nums</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="subtract"><a class="viewcode-back" href="../../_autosummary/package.math.subtract.html#package.math.subtract">[docs]</a><span class="k">def</span> <span class="nf">subtract</span><span class="p">(</span><span class="o">*</span><span class="n">nums</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="subtract"><a class="viewcode-back" href="../../_autosummary/package.math.subtract.html#package.math.subtract">[docs]</a><span class="k">def</span> <span class="nf">subtract</span><span class="p">(</span><span class="o">*</span><span class="n">nums</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Subtract all numbers.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    nums : int</span>
+<span class="sd">    nums : int or float</span>
 <span class="sd">        Numbers to subtract. Comma separated.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    int</span>
+<span class="sd">    int or float</span>
 <span class="sd">        Subtraction of all numbers.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">nums</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="multiply"><a class="viewcode-back" href="../../_autosummary/package.math.multiply.html#package.math.multiply">[docs]</a><span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="o">*</span><span class="n">nums</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="multiply"><a class="viewcode-back" href="../../_autosummary/package.math.multiply.html#package.math.multiply">[docs]</a><span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="o">*</span><span class="n">nums</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Multiply all numbers.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    nums : int</span>
+<span class="sd">    nums : int or float</span>
 <span class="sd">        Numbers to multiply. Comma separated.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    int</span>
+<span class="sd">    int or float</span>
 <span class="sd">        Multiplication of all numbers.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">nums</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="exponentiate"><a class="viewcode-back" href="../../_autosummary/package.math.exponentiate.html#package.math.exponentiate">[docs]</a><span class="k">def</span> <span class="nf">exponentiate</span><span class="p">(</span><span class="n">base</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">exponent</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="viewcode-block" id="exponentiate"><a class="viewcode-back" href="../../_autosummary/package.math.exponentiate.html#package.math.exponentiate">[docs]</a><span class="k">def</span> <span class="nf">exponentiate</span><span class="p">(</span><span class="n">base</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">,</span> <span class="n">exponent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate power of a number.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    base : int</span>
+<span class="sd">    base : int or float</span>
 <span class="sd">        Base number.</span>
-<span class="sd">    exponent : int</span>
+<span class="sd">    exponent : int or float</span>
 <span class="sd">        Exponent.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    int</span>
+<span class="sd">    int or float</span>
 <span class="sd">        Power of a number.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -160,7 +160,7 @@
   <hr/>
 
   <div role="contentinfo">
-<jinja2.runtime.BlockReference object at 0x7f2aa9243b50>
+<jinja2.runtime.BlockReference object at 0x7f9f5d130c90>
 <!-- your custom footer here-->
 © Copyright 2023, <a href="https://www.assemblyglobal.com/">Assembly Global.</a>
 
